@@ -7,7 +7,7 @@ services:
     ports:
       - "6005:6005"
     environment:
-      - "SPRING_DATASOURCE_URL=http://coffee-shop-db/coffee-shop-db"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://coffee-shop-db/coffee-shop-db"
     networks:
       - shop-network
     depends_on:
