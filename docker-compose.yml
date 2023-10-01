@@ -1,6 +1,19 @@
 version: '3.5'
 services:
-  surgerate-db:
+  coffee-shop:
+    image: ttlinh/coffee-shop
+    container_name: coffee-shop
+    restart: unless-stopped
+    ports:
+      - "6005:6005"
+    environment:
+      - "SPRING_DATASOURCE_URL=http://coffee-shop-db/coffee-shop-db"
+    networks:
+      - shop-network
+    depends_on:
+      - coffee-shop-db
+
+  coffee-shop-db:
     image: postgres:14
     container_name: coffee-shop-db
     restart: unless-stopped

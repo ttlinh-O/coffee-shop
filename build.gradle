@@ -50,6 +50,10 @@ dependencies {
 
     /* configuration-processor */
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // common library
+    implementation 'org.json:json:20220924'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 }
 
 tasks.named('test') {

@@ -1,12 +1,3 @@
-create table role
-(
-    id                  integer not null,
-    name                varchar(50) not null,
-    description         varchar(255) null,
-    constraint role_pkey primary key (id),
-    constraint uk_unique_role_name unique (name)
-);
-
 create table "user"
 (
     id                  uuid not null,
@@ -28,29 +19,19 @@ create table "user"
 create table user_role
 (
     user_id     uuid not null,
-    role_id     integer not null,
-    constraint user_role_pkey primary key (user_id, role_id),
-    constraint fk_user_role_role foreign key (role_id) references role (id),
+    "role"     varchar(255) not null,
+    constraint user_role_pkey primary key (user_id, "role"),
     constraint fk_user_role_user foreign key (user_id) references "user" (id)
-);
-
-create table address_type
-(
-    id                  uuid not null,
-    name                varchar(255) not null,
-    desciption          varchar(255) null,
-    constraint address_type_pkey primary key (id),
-    constraint uk_unique_address_type_name unique (name)
 );
 
 create table address
 (
     id                  uuid not null,
-    address_type_id     uuid not null,
+    address_type        varchar(255) null,
     street              varchar(255) not null,
     city                varchar(255) not null,
     state_province      varchar(255) not null,
-    postal_code         varchar(255) not null,
+    postal_code         varchar(255) null,
     country             varchar(255) not null,
     created_on          timestamp null,
     created_id          uuid null,
@@ -58,8 +39,7 @@ create table address
     updated_id          uuid null,
     deleted_on          timestamp null,
     deleted_id          uuid null,
-    constraint address_pkey primary key (id),
-    constraint fk_address_address_type foreign key (address_type_id) references address_type(id)
+    constraint address_pkey primary key (id)
 );
 
 create table location
@@ -85,6 +65,10 @@ create table shop
     description         varchar(255) not null,
     address_id          uuid null,
     location_id         uuid null,
+    time_open           integer not null default 0,
+    time_close          integer not null default 0,
+    queue_zise          integer not null default 1,
+    queue_amount        integer not null default 0,
     created_on          timestamp null,
     created_id          uuid null,
     updated_on          timestamp null,
@@ -130,6 +114,7 @@ create table score
     deleted_on          timestamp null,
     deleted_id          uuid null,
     constraint score_pkey primary key (id),
+    constraint uk_unique_shop_id unique (shop_id),
     constraint fk_score_shop foreign key (shop_id) references shop(id)
 );
 
@@ -161,6 +146,7 @@ create table menu
     deleted_on          timestamp null,
     deleted_id          uuid null,
     constraint menu_pkey primary key (id),
+    constraint uk_unique_menu_name unique (name),
     constraint fk_menu_shop foreign key (shop_id) references shop (id)
 );
 
@@ -172,6 +158,7 @@ create table menu_item
     price               decimal(10,2) not null,
     menu_id             uuid not null,
     category_id         uuid not null,
+    is_active           boolean default true,
     created_on          timestamp null,
     created_id          uuid null,
     updated_on          timestamp null,
@@ -209,15 +196,6 @@ create table payment
     constraint fk_payment_payment_method foreign key (method_id) references payment_method(id)
 );
 
-create table payment_status
-(
-    id              integer not null,
-    name            varchar(255) not null,
-    description     varchar(255) null,
-    constraint payment_status_pkey primary key(id),
-    constraint uk_unique_payment_status_name unique (name)
-);
-
 create table customer
 (
     id                  uuid not null,
@@ -243,23 +221,14 @@ create table customer_address
     constraint fk_customer_address_address foreign key (address_id) references address(id)
 );
 
-create table order_status
-(
-    id          integer not null,
-    name        varchar(255) not null,
-    description varchar(255) null,
-    constraint order_status_pkey primary key (id),
-    constraint uk_unique_order_status_name unique (name)
-);
-
 create table "order"
 (
     id                  uuid not null,
     customer_id         uuid not null,
     payment_id          uuid not null,
     date                timestamp not null,
-    payment_status_id   integer not null,
-    order_status_id     integer not null,
+    payment_status      varchar(255) not null,
+    order_status        varchar(255) not null,
     total_price         decimal(10,2) not null default 0,
     total_amount        integer not null default 0,
     shop_id             uuid not null,
@@ -272,8 +241,6 @@ create table "order"
     constraint order_pkey primary key (id),
     constraint uk_unique_order_payment unique (payment_id),
     constraint fk_order_shop foreign key (shop_id) references shop(id),
-    constraint fk_order_order_status foreign key (order_status_id) references order_status(id),
-    constraint fk_order_payment_status foreign key (payment_status_id) references payment_status(id),
     constraint fk_order_customer foreign key (customer_id) references customer(id)
 );
 
@@ -295,21 +262,12 @@ create table order_detail
     constraint fk_order_detail_menu_item foreign key (item_id) references menu_item(id)
 );
 
-create table queue_status
-(
-    id          integer not null,
-    name        varchar(255) not null,
-    description varchar(255) not null,
-    constraint queue_status_pk primary key (id),
-    constraint uk_unique_queue_status_name unique (name)
-);
-
 create table queue
 (
     id                  uuid not null,
     name                varchar(255) not null,
     description         varchar(255) null,
-    queue_status_id              integer not null,
+    queue_status        varchar(255) not null,
     shop_id uuid        not null,
     created_on          timestamp null,
     created_id          uuid null,
@@ -317,8 +275,7 @@ create table queue
     updated_id          uuid null,
     deleted_on          timestamp null,
     deleted_id          uuid null,
-    constraint queue_pk primary key (id),
-    constraint fk_queue_queue_status foreign key (queue_status_id) references queue_status(id)
+    constraint queue_pk primary key (id)
 );
 
 create table queue_order

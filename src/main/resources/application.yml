@@ -1,10 +1,9 @@
 server.port: 6005
-
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:postgresql://localhost:6001/coffee-shop-db
+    username: testuser
+    password: 123456
   flyway:
     locations:
       - classpath:db/migration/schema
@@ -22,10 +21,9 @@ spring:
           format_sql: false
           show_sql: false
   jwt:
-    secret:
+    secret: testsecret
 
 springdoc:
-#  auth-server-url:
   enable-data-rest: false
   api-docs:
     enabled: true
