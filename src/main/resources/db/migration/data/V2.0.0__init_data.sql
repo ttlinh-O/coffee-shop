@@ -34,7 +34,7 @@ INSERT INTO location (id, name, description, created_on, created_id, updated_on,
 
 -- Sample data for the "shop" table
 INSERT INTO shop (id, name, description, address_id, location_id, time_open, time_close, queue_size, queue_amount, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
-    ('33333333-3333-3333-3333-333333333333', 'Shop 3', 'Description for Shop 3', '33333333-3333-3333-3333-333333333333', '33333333-3333-3333-3333-333333333333', 8, 20, 50, 1, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
+    ('33333333-3333-3333-3333-333333333333', 'Shop 3', 'Description for Shop 3', '33333333-3333-3333-3333-333333333333', '33333333-3333-3333-3333-333333333333', 8, 20, 2, 1, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "employee" table
 INSERT INTO employee (id, shop_id, name, address_id, phone_number, user_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
