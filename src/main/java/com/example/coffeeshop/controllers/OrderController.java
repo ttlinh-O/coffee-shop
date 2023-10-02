@@ -1,23 +1,24 @@
 package com.example.coffeeshop.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.example.coffeeshop.dtos.OrderRequestDTO;
+import com.example.coffeeshop.dtos.OrderResponseDTO;
+import com.example.coffeeshop.services.OrderService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
-    @GetMapping
-    public String test() {
-        return "Hello";
-    }
+    private final OrderService orderService;
 
     @PostMapping
-    public UUID createOrder() {
-        return UUID.randomUUID();
+    public OrderResponseDTO createOrder(@Valid @RequestBody OrderRequestDTO orderRequest) {
+        return orderService.createOrder(orderRequest);
     }
 }

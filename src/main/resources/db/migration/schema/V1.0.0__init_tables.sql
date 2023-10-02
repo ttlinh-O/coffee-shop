@@ -67,7 +67,7 @@ create table shop
     location_id         uuid null,
     time_open           integer not null default 0,
     time_close          integer not null default 0,
-    queue_zise          integer not null default 1,
+    queue_size          integer not null default 1,
     queue_amount        integer not null default 0,
     created_on          timestamp null,
     created_id          uuid null,
@@ -159,6 +159,7 @@ create table menu_item
     menu_id             uuid not null,
     category_id         uuid not null,
     is_active           boolean default true,
+    time_prepare        integer not null default 0,
     created_on          timestamp null,
     created_id          uuid null,
     updated_on          timestamp null,
@@ -185,6 +186,7 @@ create table payment
 (
     id                  uuid not null,
     amount              decimal(10,2) not null default 0,
+    status              varchar(255) not null,
     method_id           uuid not null,
     created_on          timestamp null,
     created_id          uuid null,
@@ -227,7 +229,6 @@ create table "order"
     customer_id         uuid not null,
     payment_id          uuid not null,
     date                timestamp not null,
-    payment_status      varchar(255) not null,
     order_status        varchar(255) not null,
     total_price         decimal(10,2) not null default 0,
     total_amount        integer not null default 0,
@@ -239,7 +240,6 @@ create table "order"
     deleted_on          timestamp null,
     deleted_id          uuid null,
     constraint order_pkey primary key (id),
-    constraint uk_unique_order_payment unique (payment_id),
     constraint fk_order_shop foreign key (shop_id) references shop(id),
     constraint fk_order_customer foreign key (customer_id) references customer(id)
 );
@@ -284,6 +284,7 @@ create table queue_order
     queue_id uuid not null,
     created_on timestamp not null,
     expected_wait_time timestamp not null,
+    position integer not null,
     constraint queue_order_pkey primary key (order_id, queue_id),
     constraint uk_unique_order unique (order_id),
     constraint fk_queue_order_queue foreign key (queue_id) references queue(id),

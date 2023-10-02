@@ -1,10 +1,7 @@
 package com.example.coffeeshop.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class Shop {
     @Id
     @GenericGenerator(
@@ -32,11 +30,23 @@ public class Shop {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "time_open", nullable = false, columnDefinition = "integer default 0")
+    private Integer timeOpen = 0;
+
+    @Column(name = "time_close", nullable = false, columnDefinition = "integer default 0")
+    private Integer timeClose = 0;
+
+    @Column(name = "queue_size", nullable = false, columnDefinition = "integer default 1")
+    private Integer queueSize = 1;
+
+    @Column(name = "queue_amount", nullable = false, columnDefinition = "integer default 0")
+    private Integer queueAmount = 0;
+
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "location_id")
     private Location location;
 

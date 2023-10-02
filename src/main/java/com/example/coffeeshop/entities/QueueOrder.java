@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "queue_order")
@@ -17,21 +15,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QueueOrder {
-    @Id
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "id")
-    private UUID id;
+
+    @EmbeddedId
+    private QueueOrderEmbeddedKey id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Order order;
 
-    // Define a Many-to-One relationship to the Queue entity
     @ManyToOne
-    @JoinColumn(name = "queue_id", referencedColumnName = "id")
+    @JoinColumn(name = "queue_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Queue queue;
 
     @Column(name = "created_on", nullable = false)
@@ -39,4 +32,7 @@ public class QueueOrder {
 
     @Column(name = "expected_wait_time", nullable = false)
     private LocalDateTime expectedWaitTime;
+
+    @Column(name = "position", nullable = false)
+    private Integer position;
 }

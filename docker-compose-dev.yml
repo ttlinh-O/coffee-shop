@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+  coffee-shop-db:
+    image: postgres:14
+    container_name: coffee-shop-db
+    restart: unless-stopped
+    ports:
+      - "6001:5432"
+    environment:
+      POSTGRES_DB: coffee-shop-db
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: 123456
+    networks:
+      - shop-network
+
+# Services on the same network can communicate with each other.
+networks:
+  shop-network:
+    driver: bridge

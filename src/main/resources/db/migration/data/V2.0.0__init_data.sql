@@ -33,7 +33,7 @@ INSERT INTO location (id, name, description, created_on, created_id, updated_on,
     ('55555555-5555-5555-5555-555555555555', 'Location 5', 'Description for Location 5', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "shop" table
-INSERT INTO shop (id, name, description, address_id, location_id, time_open, time_close, queue_zise, queue_amount, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
+INSERT INTO shop (id, name, description, address_id, location_id, time_open, time_close, queue_size, queue_amount, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
     ('33333333-3333-3333-3333-333333333333', 'Shop 3', 'Description for Shop 3', '33333333-3333-3333-3333-333333333333', '33333333-3333-3333-3333-333333333333', 8, 20, 50, 1, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "employee" table
@@ -60,12 +60,12 @@ INSERT INTO menu (id, shop_id, name, description, created_on, created_id, update
     ('11111111-1111-1111-1111-111111111111', '33333333-3333-3333-3333-333333333333', 'Menu 1', 'Description for Menu 1', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "menu_item" table
-INSERT INTO menu_item (id, name, description, price, menu_id, category_id, is_active, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
-    ('11111111-1111-1111-1111-111111111111', 'Item 1', 'Description for Item 1', 10000.00, '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', true, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
-    ('22222222-2222-2222-2222-222222222222', 'Item 2', 'Description for Item 2', 20000.00, '11111111-1111-1111-1111-111111111111', '22222222-2222-2222-2222-222222222222', true, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
-    ('33333333-3333-3333-3333-333333333333', 'Item 3', 'Description for Item 3', 30000.00, '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', true, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
-    ('44444444-4444-4444-4444-444444444444', 'Item 4', 'Description for Item 4', 40000.00, '11111111-1111-1111-1111-111111111111', '22222222-2222-2222-2222-222222222222', true, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
-    ('55555555-5555-5555-5555-555555555555', 'Item 5', 'Description for Item 5', 50000.00, '11111111-1111-1111-1111-111111111111', '33333333-3333-3333-3333-333333333333', true, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
+INSERT INTO menu_item (id, name, description, price, menu_id, category_id, is_active, time_prepare, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
+    ('11111111-1111-1111-1111-111111111111', 'Item 1', 'Description for Item 1', 10000.00, '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', true, 10, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
+    ('22222222-2222-2222-2222-222222222222', 'Item 2', 'Description for Item 2', 20000.00, '11111111-1111-1111-1111-111111111111', '22222222-2222-2222-2222-222222222222', true, 10, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
+    ('33333333-3333-3333-3333-333333333333', 'Item 3', 'Description for Item 3', 30000.00, '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', true, 10, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
+    ('44444444-4444-4444-4444-444444444444', 'Item 4', 'Description for Item 4', 40000.00, '11111111-1111-1111-1111-111111111111', '22222222-2222-2222-2222-222222222222', true, 10, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
+    ('55555555-5555-5555-5555-555555555555', 'Item 5', 'Description for Item 5', 50000.00, '11111111-1111-1111-1111-111111111111', '33333333-3333-3333-3333-333333333333', true, 10, '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "payment_method" table
 INSERT INTO payment_method (id, name, description, is_active) VALUES
@@ -73,8 +73,9 @@ INSERT INTO payment_method (id, name, description, is_active) VALUES
     ('22222222-2222-2222-2222-222222222222', 'Cash', 'Payment by cash', true);
 
 -- Sample data for the "payment" table
-INSERT INTO payment (id, amount, method_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
-    ('11111111-1111-1111-1111-111111111111', 300000.00, '22222222-2222-2222-2222-222222222222', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
+INSERT INTO payment (id, amount, status, method_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
+    ('11111111-1111-1111-1111-111111111111', 300000.00, 'PAID', '22222222-2222-2222-2222-222222222222', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null),
+    ('22222222-2222-2222-2222-222222222222', 300000.00, 'PAID', '22222222-2222-2222-2222-222222222222', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "customer" table
 INSERT INTO customer (id, name, phone_number, user_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
@@ -85,8 +86,8 @@ INSERT INTO customer_address (customer_id, address_id) VALUES
     ('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111');
 
 -- Sample data for the "order" table
-INSERT INTO "order" (id, customer_id, payment_id, date, payment_status, order_status, total_price, total_amount, shop_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
-    ('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', '2023-09-30 12:00:00', 'PAID', 'DELIVERED', 300000, 9, '33333333-3333-3333-3333-333333333333', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
+INSERT INTO "order" (id, customer_id, payment_id, date, order_status, total_price, total_amount, shop_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
+    ('11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', '11111111-1111-1111-1111-111111111111', '2023-09-30 12:00:00', 'DELIVERED', 300000, 9, '33333333-3333-3333-3333-333333333333', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 -- Sample data for the "order_detail" table
 INSERT INTO order_detail (id, order_id, item_id, price, amount, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
@@ -98,7 +99,7 @@ INSERT INTO order_detail (id, order_id, item_id, price, amount, created_on, crea
 
 -- Sample data for the "queue" table
 INSERT INTO queue (id, name, description, queue_status, shop_id, created_on, created_id, updated_on, updated_id, deleted_on, deleted_id) VALUES
-    ('33333333-3333-3333-3333-333333333333', 'Queue 1', 'Description for Queue 1', 'OPEN', '11111111-1111-1111-1111-111111111111', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
+    ('33333333-3333-3333-3333-333333333333', 'Queue 1', 'Description for Queue 1', 'OPEN', '33333333-3333-3333-3333-333333333333', '2023-09-30 00:00:00', null, '2023-09-30 00:00:00', null, null, null);
 
 --INSERT INTO queue_order (order_id, queue_id, created_on, expected_wait_time) VALUES
 --    ('22222222-2222-2222-2222-222222222222', '22222222-2222-2222-2222-222222222222', '2023-09-30 00:00:00', '2023-09-30 18:30:00'),

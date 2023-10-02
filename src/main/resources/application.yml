@@ -1,7 +1,7 @@
 server.port: 6005
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6001/coffee-shop-db
+    url:
     username: testuser
     password: 123456
   flyway:
@@ -20,9 +20,6 @@ spring:
           jdbc.batch_size: 20
           format_sql: false
           show_sql: false
-  jwt:
-    secret: testsecret
-
 springdoc:
   enable-data-rest: false
   api-docs:

@@ -1,10 +1,9 @@
 package com.example.coffeeshop.entities;
 
+import com.example.coffeeshop.enums.OrderStatus;
+import com.example.coffeeshop.enums.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
@@ -13,11 +12,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Table(name = "\"order\"")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order {
 
     @Id
@@ -39,11 +39,9 @@ public class Order {
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
-    @Column(name = "payment_status", nullable = false)
-    private String paymentStatus;
-
     @Column(name = "order_status", nullable = false)
-    private String orderStatus;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
@@ -55,7 +53,7 @@ public class Order {
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
     @Column(name = "created_on")

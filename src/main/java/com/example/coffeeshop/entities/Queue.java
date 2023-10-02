@@ -1,5 +1,6 @@
 package com.example.coffeeshop.entities;
 
+import com.example.coffeeshop.enums.QueueStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,13 +34,14 @@ public class Queue {
     private String description;
 
     @Column(name = "queue_status", nullable = false)
-    private String queueStatus;
+    @Enumerated(EnumType.STRING)
+    private QueueStatus queueStatus;
 
     @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
     private Shop shop;
 
-    @OneToMany(mappedBy = "queue")
+    @OneToMany(mappedBy = "queue", fetch = FetchType.LAZY)
     private List<QueueOrder> queueOrders;
 
     @Column(name = "created_on")

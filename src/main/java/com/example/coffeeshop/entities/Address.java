@@ -1,9 +1,7 @@
 package com.example.coffeeshop.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.coffeeshop.enums.AddressType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +27,8 @@ public class Address {
     private UUID id;
 
     @Column(name = "address_type")
-    private String addressType;
+    @Enumerated(EnumType.STRING)
+    private AddressType addressType;
 
     @Column(name = "street", nullable = false)
     private String street;
