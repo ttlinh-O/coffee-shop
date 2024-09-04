@@ -1,4 +1,4 @@
-# coffee-shop
+# coffee-shop-test
 
 ## Sample data
 ### Coffee-shop
